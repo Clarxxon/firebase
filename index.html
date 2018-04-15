@@ -258,8 +258,10 @@
 		
 		<script>
 			var globalFile='';
-			var globalUser;
-			var globalToken;
+			var globalUser = localStorage.getItem('user');
+			var globalToken = localStorage.getItem('token');
+			console.log(globalToken);
+			console.log(globalUser);
 			// Initialize Firebase
 			var config = {
 				apiKey: "AIzaSyAXLU6tV2AYec1RYKKWqr5xzy-XAyl5sLw",
@@ -287,7 +289,7 @@
 					// The signed-in user info.
 					var user = result.user;
 
-					$('#profileSelector').innerHTML=user.name;
+					$('#profileSelector').text(user.name);
 					
 					globalToken=token;
 					globalUser=user;
