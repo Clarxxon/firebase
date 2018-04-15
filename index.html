@@ -263,7 +263,7 @@
 			var globalToken = localStorage.getItem('token');
 
 			if(globalUser&&globalToken){
-				$('#profileSelector').text(globalUser.displayName);
+				$('#profileselector').text(globalUser.displayName);
 			}else{
 				alert('авторизируйтесь на сайте для начала работы!');
 			}
@@ -298,7 +298,7 @@
 					// The signed-in user info.
 					var user = result.user;
 
-					$('#profileSelector').text(user.displayName);
+					$('#profileselector').text(user.displayName);
 					
 					globalToken=token;
 					globalUser=user;
