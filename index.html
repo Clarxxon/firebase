@@ -297,11 +297,10 @@
 					var token = result.credential.accessToken;
 					// The signed-in user info.
 					var user = result.user;
-
-					$('#profileselector').text(user.displayName);
-					
+									
 					globalToken=token;
 					globalUser=user;
+					$('#profileselector').text(globalUser.displayName);
 					
 					localStorage.setItem('user', JSON.stringify(globalUser));
 					localStorage.setItem('token', globalToken);
