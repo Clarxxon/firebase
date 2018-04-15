@@ -57,10 +57,10 @@
 							<nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
 								<ul class="nav navbar-nav">
 									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">My Account <b class="caret"></b></a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" id ="profileselector">My Account </a>
 										<ul class="dropdown-menu animated fadeInUp">
 											<li><a href="profile.html">Profile</a></li>
-											<li><a href="login.html">Logout</a></li>
+											<li><a href="login.html" id="logout">Logout</a></li>
 										</ul>
 									</li>
 								</ul>
@@ -258,6 +258,8 @@
 		
 		<script>
 			var globalFile='';
+			var globalUser;
+			var globalToken;
 			// Initialize Firebase
 			var config = {
 				apiKey: "AIzaSyAXLU6tV2AYec1RYKKWqr5xzy-XAyl5sLw",
@@ -274,9 +276,6 @@
 			
 			// Create a child reference
 			var storageRef = firebase.storage().ref();
-
-			// Create a reference to 'mountains.jpg'
-			var mountainsRef = storageRef.child('mountains.jpg');
 			
 			$('#sendData').click(function(){
 				var provider = new firebase.auth.GoogleAuthProvider();
@@ -287,8 +286,18 @@
 					var token = result.credential.accessToken;
 					// The signed-in user info.
 					var user = result.user;
-					// ...
-					}).catch(function(error) {
+
+					$('#profileSelector').innerHTML=user.name;
+					
+					globalToken=token;
+					globalUser=user;
+					
+					localStorage.setItem('user', globalUser);
+					localStorage.setItem('token', globalToken);
+					
+					console.log('token '+ globalToken);
+					
+				}).catch(function(error) {
 					// Handle Errors here.
 					var errorCode = error.code;
 					var errorMessage = error.message;
@@ -296,17 +305,16 @@
 					var email = error.email;
 					// The firebase.auth.AuthCredential type that was used.
 					var credential = error.credential;
-					// ...
 				});
 				console.log('send!');
 				
 				var message = "test message";
-
+				
 				const metadata = { contentType: globalFile.type };
 				var filename = globalFile.name;
 				const ref = firebase.storage().ref('/images/'+filename);
 				var uploadTask = ref.put(globalFile, metadata);
-
+				
 				// Register three observers:
 				// 1. 'state_changed' observer, called any time the state changes
 				// 2. Error observer, called on failure
@@ -324,9 +332,9 @@
 						console.log('Upload is running');
 						break;
 					}
-					}, function(error) {
+				}, function(error) {
 					// Handle unsuccessful uploads
-					}, function() {
+				}, function() {
 					// Handle successful uploads on complete
 					// For instance, get the download URL: https://firebasestorage.googleapis.com/...
 					var downloadURL = uploadTask.snapshot.downloadURL;
@@ -344,6 +352,14 @@
 				
 			});
 			
+			$('#logout').click(function(){
+				firebase.auth().signOut().then(function() {
+					// Sign-out successful.
+				}).catch(function(error) {
+					// An error happened.
+				});
+			});
+			
 			function handleFileSelect(evt) {
 				var files = evt.target.files; // FileList object
 				globalFile = files[0];
@@ -355,21 +371,6 @@
 						f.lastModifiedDate.toLocaleDateString(), '</li>');
 					}
 					document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-				}
-				
-				// Loop through the FileList and render image files as thumbnails.
-				for (var i = 0, f; f = files[i]; i++) {
-					
-					// Only process image files.
-					if (!f.type.match('image.*')) {
-						continue;
-					}
-					
-					var reader = new FileReader();
-					
-					
-					// Read in the image file as a data URL.
-					//globalFile = reader.readAsText(f);
 				}
 				
 				document.getElementById('files').addEventListener('change', handleFileSelect, false);
