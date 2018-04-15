@@ -57,9 +57,9 @@
 							<nav class="collapse navbar-collapse bs-navbar-collapse navbar-right" role="navigation">
 								<ul class="nav navbar-nav">
 									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown" id ="profileselector">My Account </a>
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown" id ="profileselector">Sign in</a>
 										<ul class="dropdown-menu animated fadeInUp">
-											<li><a href="profile.html">Profile</a></li>
+											<li><a href="login.html">Sign in</a></li>
 											<li><a href="login.html" id="logout">Logout</a></li>
 										</ul>
 									</li>
@@ -289,35 +289,7 @@
 			var storageRef = firebase.storage().ref();
 			
 			$('#sendData').click(function(){
-				var provider = new firebase.auth.GoogleAuthProvider();
-				provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-				//firebase.auth().signInWithRedirect(provider);
-				firebase.auth().signInWithPopup(provider).then(function(result) {
-					// This gives you a Google Access Token. You can use it to access the Google API.
-					var token = result.credential.accessToken;
-					// The signed-in user info.
-					var user = result.user;
-									
-					globalToken=token;
-					globalUser=user;
-					$('#profileselector').text(globalUser.displayName);
-					
-					localStorage.setItem('user', JSON.stringify(globalUser));
-					localStorage.setItem('token', globalToken);
-					
-					console.log('token '+ globalToken);
-					
-				}).catch(function(error) {
-					// Handle Errors here.
-					var errorCode = error.code;
-					var errorMessage = error.message;
-					// The email of the user's account used.
-					var email = error.email;
-					// The firebase.auth.AuthCredential type that was used.
-					var credential = error.credential;
-				});
-				console.log('send!');
-				
+							
 				var message = "test message";
 				
 				const metadata = { contentType: globalFile.type };
@@ -356,20 +328,50 @@
 					text: 'test text message',
 				});
 				
-				/*textRef.putString(message).then(function(snapshot) {
-					console.log('Uploaded a raw object!');
-				});*/
-				
 			});
-			
+			// Sign - in ----------------------------------------------------------------
+			function signIn(){
+				var provider = new firebase.auth.GoogleAuthProvider();
+				provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+				//firebase.auth().signInWithRedirect(provider);
+				firebase.auth().signInWithPopup(provider).then(function(result) {
+					// This gives you a Google Access Token. You can use it to access the Google API.
+					var token = result.credential.accessToken;
+					// The signed-in user info.
+					var user = result.user;
+									
+					globalToken=token;
+					globalUser=user;
+					$('#profileselector').text(globalUser.displayName);
+					
+					localStorage.setItem('user', JSON.stringify(globalUser));
+					localStorage.setItem('token', globalToken);
+					
+					console.log('token '+ globalToken);
+					
+				}).catch(function(error) {
+					// Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					// The email of the user's account used.
+					var email = error.email;
+					// The firebase.auth.AuthCredential type that was used.
+					var credential = error.credential;
+				});
+			}
+			// Sign - out ----------------------------------------------------------------
 			$('#logout').click(function(){
+				localStorage.clear();
+				globalToken='';
+				globalUser = '';
 				firebase.auth().signOut().then(function() {
-					// Sign-out successful.
+					console.log( 'Sign-out successful');
 				}).catch(function(error) {
 					// An error happened.
 				});
 			});
-			
+
+			// file selector ------------------------------------------------------------
 			function handleFileSelect(evt) {
 				var files = evt.target.files; // FileList object
 				globalFile = files[0];

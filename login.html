@@ -39,9 +39,9 @@
 			                <div class="social">
 	                            <a class="face_login" href="#">
 	                                <span class="face_icon">
-	                                    <img src="images/facebook.png" alt="fb">
+	                                    <img src="images/google.png" alt="fb">
 	                                </span>
-	                                <span class="text">Sign in with Facebook</span>
+	                                <span class="text">Sign in with Google</span>
 	                            </a>
 	                            <div class="division">
 	                                <hr class="left">
@@ -52,7 +52,7 @@
 			                <input class="form-control" type="text" placeholder="E-mail address">
 			                <input class="form-control" type="password" placeholder="Password">
 			                <div class="action">
-			                    <a class="btn btn-primary signup" href="index.html">Login</a>
+			                    <a class="btn btn-primary signup" href="#" id="login">Login</a>
 			                </div>                
 			            </div>
 			        </div>
@@ -66,6 +66,36 @@
 		</div>
 	</div>
 
+	<script>
+		function signIn(){
+				var provider = new firebase.auth.GoogleAuthProvider();
+				provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+				//firebase.auth().signInWithRedirect(provider);
+				firebase.auth().signInWithPopup(provider).then(function(result) {
+					// This gives you a Google Access Token. You can use it to access the Google API.
+					var token = result.credential.accessToken;
+					// The signed-in user info.
+					var user = result.user;			
+					
+					$('#profileselector').text(user.displayName);
+					
+					localStorage.setItem('user', JSON.stringify(user));
+					localStorage.setItem('token', token);
+					
+					console.log('token '+ token);
+					window.location.href='index.html';
+					
+				}).catch(function(error) {
+					// Handle Errors here.
+					var errorCode = error.code;
+					var errorMessage = error.message;
+					// The email of the user's account used.
+					var email = error.email;
+					// The firebase.auth.AuthCredential type that was used.
+					var credential = error.credential;
+				});
+			}
+	</script>
 
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
