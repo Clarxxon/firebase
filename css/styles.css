@@ -481,14 +481,14 @@ body {
   width: 90%;
 }
 .login-wrapper .box .social a.face_login{
-  background: #6887c4;
-  background: -moz-linear-gradient(top, #6887c4 0%, #4566a9 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6887c4), color-stop(100%,#4566a9));
-  background: -webkit-linear-gradient(top, #6887c4 0%,#4566a9 100%);
-  background: -o-linear-gradient(top, #6887c4 0%,#4566a9 100%);
-  background: -ms-linear-gradient(top, #6887c4 0%,#4566a9 100%); 
-  background: linear-gradient(to bottom, #6887c4 0%,#4566a9 100%); 
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6887c4', endColorstr='#4566a9',GradientType=0 );
+  background: #fff;
+  background: -moz-linear-gradient(top, #fff 0%, #fff 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fff), color-stop(100%,#fff));
+  background: -webkit-linear-gradient(top, #fff 0%,#fff 100%);
+  background: -o-linear-gradient(top, #fff 0%,#fff 100%);
+  background: -ms-linear-gradient(top, #fff 0%,#fff 100%); 
+  background: linear-gradient(to bottom, #fff 0%,#fff 100%); 
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#fff',GradientType=0 );
   border: 1px solid #3B4868;
     border-radius: 3px 3px 3px 3px;
     display: inline-block;
@@ -498,34 +498,28 @@ body {
 
     text-decoration: none !important;
 }
-.login-wrapper .box .social a.face_login:hover {
-  background: #6887c4;
-  background: -moz-linear-gradient(top, #6887c4 0%, #5773AC 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6887c4), color-stop(100%,#5773AC));
-  background: -webkit-linear-gradient(top, #6887c4 0%,#5773AC 100%);
-  background: -o-linear-gradient(top, #6887c4 0%,#5773AC 100%);
-  background: -ms-linear-gradient(top, #6887c4 0%,#5773AC 100%); 
-  background: linear-gradient(to bottom, #6887c4 0%,#5773AC 100%); 
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6887c4', endColorstr='#5773AC',GradientType=0 );
-}
+
 .login-wrapper .box .social a.face_login span.face_icon{
-  background-color: #39599F;
+  background-color: #FFFFFF;
     border-radius: 3px 0 0 3px;
     float: left;
     height: 37px;
     text-align: center;
     width: 51px;
+    
 }
 .login-wrapper .box .social a.face_login span.face_icon img{
   margin-top: 5px;
+  width: auto;
+  height: 65%;
 }
 .login-wrapper .box .social a.face_login span.text{
-  color: #FFFFFF;
+    color: #000;
     float: left;
     font-size: 15px;
     font-weight: bold;
     margin: 6px 0 0 25px;
-    text-shadow: 1px 1px 0 #39599F;
+  
 }
 .login-wrapper .box .division{
   display: inline-block;
