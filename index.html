@@ -111,10 +111,15 @@
 									</div>
 								</div>
 								<div class="panel-body">
-									<button class="btn btn-default btn-xs" id="sendData">Send</button>
+									<label class="btn btn-default">
+										Enter file to upload
+											<input type="file" id="files" name="files[]" multiple/>
+									</label>
 									
-									<input type="file" id="files" name="files[]" multiple />
 									<output id="list"></output>
+
+									<br>
+									<button class="btn btn-default" id="sendData">Send</button>
 								</div>
 							</div>
 						</div>

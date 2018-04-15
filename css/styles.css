@@ -644,3 +644,8 @@ body {
       border-radius:10px;
    }  
 }
+
+
+input[type="file"] {
+  display: none;
+}
