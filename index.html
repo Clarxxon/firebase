@@ -136,6 +136,7 @@
 								<div class="panel-body">
 									<img src="" id="image" style="    width: 100%;
 									margin-bottom: 20px;" />
+									<input type="text" id="filename"/>
 									<button class="btn btn-default" id="getData">Download file</button>
 								</div>
 							</div>
@@ -311,7 +312,8 @@
 			var storageRef = firebase.storage().ref();
 
 			$('#getData').click(function(){
-				var reference = firebase.storage().ref('/images/jakudze.jpg');
+				var filename = $('#filename').val();
+				var reference = firebase.storage().ref('/images/'+filename);
 				reference.getDownloadURL().then(function(url) {
 					$('#image').attr("src", url);
 					console.log(url);
