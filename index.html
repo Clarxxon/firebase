@@ -135,7 +135,7 @@
 								</div>
 								<div class="panel-body">
 									<img src="" id="image"/>
-									<button class="btn btn-default" id="sendData">Download file</button>
+									<button class="btn btn-default" id="getData">Download file</button>
 								</div>
 							</div>
 						</div>
@@ -308,6 +308,14 @@
 			console.log(storage);
 			// Create a child reference
 			var storageRef = firebase.storage().ref();
+
+			$('#getData').click(function(){
+				var reference = firebase.storage().ref('/images/jakudze.jpg');
+				reference.getDownloadURL().then(function(url) {
+					$('#image').attr("src", url);
+					console.log(url);
+				});
+			});
 			
 			$('#sendData').click(function(){
 				
@@ -350,11 +358,7 @@
 				});
 				
 				
-				var reference = firebase.storage().ref('/images/jakudze.jpg');
-				reference.getDownloadURL().then(function(url) {
-					$('#image').attr("src", url);
-					console.log(url);
-				});
+				
 			});
 			// Sign - in ----------------------------------------------------------------
 			function signIn(){
