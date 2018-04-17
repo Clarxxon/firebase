@@ -113,13 +113,29 @@
 								<div class="panel-body">
 									<label class="btn btn-default">
 										Enter file to upload
-											<input type="file" id="files" name="files[]" multiple/>
+										<input type="file" id="files" name="files[]" multiple/>
 									</label>
 									
 									<output id="list"></output>
-
+									
 									<br>
 									<button class="btn btn-default" id="sendData">Send</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="content-box-large">
+								<div class="panel-heading">
+									<div class="panel-title">Google firebase test)</div>
+									
+									<div class="panel-options">
+										<a href="#" data-rel="collapse"><i class="glyphicon glyphicon-refresh"></i></a>
+										<a href="#" data-rel="reload"><i class="glyphicon glyphicon-cog"></i></a>
+									</div>
+								</div>
+								<div class="panel-body">
+									<img src="" id="image"/>
+									<button class="btn btn-default" id="sendData">Download file</button>
 								</div>
 							</div>
 						</div>
@@ -266,7 +282,7 @@
 			var globalFile='';
 			var globalUser = JSON.parse( localStorage.getItem('user'));
 			var globalToken = localStorage.getItem('token');
-
+			
 			if(globalUser&&globalToken){
 				$('#profileselector').text(globalUser.displayName);
 			}else{
@@ -275,7 +291,7 @@
 			
 			console.log(globalToken);
 			console.log(globalUser);
-
+			
 			// Initialize Firebase
 			var config = {
 				apiKey: "AIzaSyAXLU6tV2AYec1RYKKWqr5xzy-XAyl5sLw",
@@ -289,12 +305,12 @@
 			
 			// Get a reference to the storage service, which is used to create references in your storage bucket
 			var storage = firebase.storage();
-			
+			console.log(storage);
 			// Create a child reference
 			var storageRef = firebase.storage().ref();
 			
 			$('#sendData').click(function(){
-							
+				
 				var message = "test message";
 				
 				const metadata = { contentType: globalFile.type };
@@ -333,6 +349,12 @@
 					text: 'test text message',
 				});
 				
+				
+				var reference = firebase.storage().ref('/images/jakudze.jpg');
+				reference.getDownloadURL().then(function(url) {
+					$('#image').attr("src", url);
+					console.log(url);
+				});
 			});
 			// Sign - in ----------------------------------------------------------------
 			function signIn(){
@@ -344,7 +366,7 @@
 					var token = result.credential.accessToken;
 					// The signed-in user info.
 					var user = result.user;
-									
+					
 					globalToken=token;
 					globalUser=user;
 					$('#profileselector').text(globalUser.displayName);
@@ -375,7 +397,7 @@
 					// An error happened.
 				});
 			});
-
+			
 			// file selector ------------------------------------------------------------
 			function handleFileSelect(evt) {
 				var files = evt.target.files; // FileList object
